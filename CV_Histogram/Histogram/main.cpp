@@ -10,6 +10,7 @@ using namespace cv;
 void drawHistogram(Mat img);
 void equalize(Mat img);
 void lomography(Mat img);
+void cartoon(Mat img);
 
 int main(int argc, const char** argv)
 {
@@ -18,9 +19,10 @@ int main(int argc, const char** argv)
     Mat result;
 
     imshow("Castle", castle);
-    drawHistogram(castle);
+    //drawHistogram(castle);
     //equalize(castle);
-    lomography(castle);
+    //lomography(castle);
+    cartoon(castle);
 
     waitKey(0);
     return 1;
@@ -139,4 +141,58 @@ void lomography(Mat img)
 
     // show result
     imshow("Lomograpy", result);
+}
+
+void cartoon(Mat img)
+{
+    // Apply median filter to remove possible noise
+    Mat imgMedian;
+    medianBlur(img, imgMedian, 7);
+
+    // Detect edges with canny
+    Mat imgCanny;
+    Canny(imgMedian, imgCanny, 50, 150);
+
+    // Dilate the edges
+    Mat kernel = getStructuringElement(MORPH_RECT, Size(2, 2));
+    dilate(imgCanny, imgCanny, kernel);
+
+    // Scale edges values to 1 and invert values
+    imgCanny = imgCanny / 255;
+    imgCanny = 1 - imgCanny;
+
+    // Use float values to allow multiply between 0 and 1
+    Mat imgCannyf;
+    imgCanny.convertTo(imgCannyf, CV_32FC3);
+
+    // Blur the edgest to do smooth effect
+    blur(imgCannyf, imgCannyf, Size(5, 5));
+
+    /** COLOR **/
+    // Apply bilateral filter to homogenizes color
+    Mat imgBF;
+    bilateralFilter(img, imgBF, 9, 150.0, 150.0);
+
+    // truncate colors
+    Mat result = imgBF / 25;
+    result = result * 25;
+
+    /** MERGES COLOR + EDGES **/
+    // Create a 3 channles for edges
+    Mat imgCanny3c;
+    Mat cannyChannels[] = { imgCannyf, imgCannyf, imgCannyf };
+    merge(cannyChannels, 3, imgCanny3c);
+
+    // Convert color result to float
+    Mat resultf;
+    result.convertTo(resultf, CV_32FC3);
+
+    // Multiply color and edges matrices
+    multiply(resultf, imgCanny3c, resultf);
+
+    // convert to 8 bits color
+    resultf.convertTo(result, CV_8UC3);
+
+    // Show image
+    imshow("Result", result);
 }

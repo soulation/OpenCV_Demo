@@ -1,6 +1,2 @@
-﻿  main.cpp
-e:\hub\opencv_demo\cv_histogram\histogram\main.cpp(108): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-e:\hub\opencv_demo\cv_histogram\histogram\main.cpp(108): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
-e:\hub\opencv_demo\cv_histogram\histogram\main.cpp(113): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Histogram.vcxproj -> E:\Hub\OpenCV_Demo\CV_Histogram\x64\Debug\Histogram.exe
+﻿  Histogram.vcxproj -> E:\Hub\OpenCV_Demo\CV_Histogram\x64\Debug\Histogram.exe
   Histogram.vcxproj -> E:\Hub\OpenCV_Demo\CV_Histogram\x64\Debug\Histogram.pdb (Full PDB)
