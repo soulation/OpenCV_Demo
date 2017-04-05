@@ -8,14 +8,17 @@ using namespace std;
 using namespace cv;
 
 void drawHistogram(Mat img);
+void equalize(Mat img);
 
 int main(int argc, const char** argv)
 {
-    Mat castle = imread("castle.jpg", IMREAD_REDUCED_COLOR_2);
+    string imgPath = "../../Resource/castle.jpg";
+    Mat castle = imread(imgPath, IMREAD_REDUCED_COLOR_2);
     Mat result;
 
     imshow("Castle", castle);
     drawHistogram(castle);
+    equalize(castle);
 
     waitKey(0);
     return 1;
@@ -70,4 +73,30 @@ void drawHistogram(Mat img) {
             Scalar(0, 0, 255));
     }
     imshow("Histogram", histImage);
+
+}
+
+void equalize(Mat img) 
+{
+    Mat result;
+    // Convert BGF image to YCbCr
+    Mat ycrcb;
+    cvtColor(img, ycrcb, COLOR_BGR2YCrCb);
+
+    // Split image into channels
+    vector<Mat> channels;
+    split(ycrcb, channels);
+
+    // Equalize the Y channel only
+    equalizeHist(channels[0], channels[0]);
+
+    // Merge the result channels
+    merge(channels, ycrcb);
+
+    // Convert color ycrcb to BGR
+    cvtColor(ycrcb, result, COLOR_YCrCb2BGR);
+
+    // Show image
+    imshow("Equalized", result);
+
 }
