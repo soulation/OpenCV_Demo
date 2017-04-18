@@ -1,5 +1,0 @@
-﻿  main.cpp
-e:\hub\opencv_demo\yugiohcardextractor\yugiohcardextractor\main.cpp(20): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-e:\hub\opencv_demo\yugiohcardextractor\yugiohcardextractor\main.cpp(21): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  YugiohCardExtractor.vcxproj -> E:\Hub\OpenCV_Demo\YugiohCardExtractor\x64\Debug\YugiohCardExtractor.exe
-  YugiohCardExtractor.vcxproj -> E:\Hub\OpenCV_Demo\YugiohCardExtractor\x64\Debug\YugiohCardExtractor.pdb (Full PDB)

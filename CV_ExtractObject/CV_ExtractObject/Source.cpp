@@ -34,12 +34,8 @@ int main(int argc, const char** argv)
     //division = (1 - (object / background)) * 255;
 
     imshow("Object", object);
-    imshow("Background", background);
+    //imshow("Background", background);
     imshow("Background - Object", difference);
-
-    // Position screens position
-    moveWindow("Object", 80,0);
-    moveWindow("Background", screen_width/4, screen_height/2);
 
     waitKey();
 }
